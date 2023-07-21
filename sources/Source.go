@@ -1,5 +1,5 @@
 package sources
 
 type Source interface {
-    Download() []Article
+	Download() []Article
 }
