@@ -3,6 +3,8 @@ package patterns
 import (
 	"sort"
 	"strings"
+	"unicode"
+
 	"../sources"
 )
 
@@ -13,7 +15,12 @@ func (strategy *FrequencyPerArticleStrategy) Execute(articles []sources.Article)
     memory := make(map[string]int)
     
     for _, article := range articles {
-        fullText := append(strings.Split(article.Title, " "), strings.Split(article.Body, " ")...)
+        // rimovo punteggiatura dal titolo e corpo
+        title := removePunctuationAndToLower(article.Title)
+        body := removePunctuationAndToLower(article.Body)
+
+        // unisco titolo e corpo in un'unico slice
+        fullText := append(strings.Split(title, " "), strings.Split(body, " ")...)
 
         // inserisico tutte le parole in un set per rimuovere i doppioni
         set := map[string]struct{}{}
@@ -23,6 +30,9 @@ func (strategy *FrequencyPerArticleStrategy) Execute(articles []sources.Article)
 
         // effettuo il conteggio
         for word := range set {
+            if len(word) == 0 { // gestione carattere fantasma
+                continue
+            }
             v := memory[word]
             memory[word] = v+1
         }
@@ -48,4 +58,17 @@ func (strategy *FrequencyPerArticleStrategy) Execute(articles []sources.Article)
     })
 
     return sorted
+}
+
+// Rimuove la punteggiatura da una stringa e la converte in minuscolo
+func removePunctuationAndToLower(input string) string {
+	var result strings.Builder
+
+	for _, r := range input {
+		if !unicode.IsPunct(r) {
+			result.WriteRune(r)
+		}
+	}
+
+	return strings.ToLower(result.String())
 }
