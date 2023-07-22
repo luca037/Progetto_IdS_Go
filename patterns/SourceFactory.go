@@ -6,7 +6,7 @@ import(
 
 type SourceFactory struct { }
 
-func (factory SourceFactory) CreateSource(args ...string) sources.Source {
+func (factory *SourceFactory) CreateSource(args ...string) sources.Source {
     if args == nil {
         return nil
     }
