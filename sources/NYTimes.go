@@ -20,7 +20,7 @@ func (nytimes *NYTimes) Download() []Article {
     csvReader := csv.NewReader(file)
 
     // lista in cui salvo tutti gli articoli presenti nel file
-    list := make([]Article, 1001)
+    articles := make([]Article, 1001) // il numero di articoli totali lo conosco già
     index := 0
 
     // leggo tutte le righe del file csv
@@ -33,9 +33,9 @@ func (nytimes *NYTimes) Download() []Article {
             continue
         }
 
-        list[index] = Article{Title: rec[2], Body: rec[3]}
+        articles[index] = Article{Title: rec[2], Body: rec[3]}
         index++
     }
     
-    return list
+    return articles
 }

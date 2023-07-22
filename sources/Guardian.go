@@ -20,18 +20,18 @@ type Response struct {
 }
 
 type Guardian struct {
-	ApiKey    string
+	ApiKey string
 }
 
 func (guardian *Guardian) Download() []Article {
     // contenuti delle risposte alle chiamate api
-    responsesBytes := make(chan []byte, 20)
+    responsesBytes := make(chan []byte, 5)
 
     url := "https://content.guardianapis.com/search?show-fields=all&page-size=200&api-key=d882b87f-6009-434f-9076-af23bd12b56f"
-    go getResponses(responsesBytes, url, 20)
+    go getResponses(responsesBytes, url, 5)
 
 	// lista in cui salvo tutti i 1000 articoli delle risposte
-	allArticles := make([]Article, 200*20)
+	allArticles := make([]Article, 200*5)
 	index := 0
 
     for content := range responsesBytes {
