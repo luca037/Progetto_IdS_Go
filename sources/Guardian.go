@@ -24,23 +24,23 @@ type Guardian struct {
 }
 
 func (guardian *Guardian) Download() []Article {
-    // contenuti delle risposte alle chiamate api
-    responsesBytes := make(chan []byte, 5)
+	// contenuti delle risposte alle chiamate api
+	responsesBytes := make(chan []byte, 5)
 
-    url := "https://content.guardianapis.com/search?show-fields=all&page-size=200&api-key=d882b87f-6009-434f-9076-af23bd12b56f"
-    go getResponses(responsesBytes, url, 5)
+	url := "https://content.guardianapis.com/search?show-fields=all&page-size=200&api-key=d882b87f-6009-434f-9076-af23bd12b56f"
+	go getResponses(responsesBytes, url, 5)
 
 	// lista in cui salvo tutti i 1000 articoli delle risposte
 	allArticles := make([]Article, 200*5)
 	index := 0
 
-    for content := range responsesBytes {
+	for content := range responsesBytes {
 		// oggetto in cui salvo la risposta
 		var response ResponseWrapper
 
 		err := json.Unmarshal(content, &response)
 		if err != nil {
-            panic(err)
+			panic(err)
 		}
 
 		// salvo tutti gli articoli nella lista
@@ -58,26 +58,26 @@ func (guardian *Guardian) Download() []Article {
 // url è l'indirizzo.
 // nPages è il numero di pagine da scaricare.
 func getResponses(ch chan<- []byte, url string, nPages int) {
-    var senders sync.WaitGroup
-    defer close(ch)
+	var senders sync.WaitGroup
+	defer close(ch)
 
-    for i := 1; i <= nPages; i++ {
-        senders.Add(1)
-        go func(n int) {
-            url += "&page=" + fmt.Sprint(n)
-            resp, err := http.Get(url)
-            if err != nil {
-                panic(err)
-            }
+	for i := 1; i <= nPages; i++ {
+		senders.Add(1)
+		go func(n int) {
+			url += "&page=" + fmt.Sprint(n)
+			resp, err := http.Get(url)
+			if err != nil {
+				panic(err)
+			}
 
-            var buffer bytes.Buffer
-            io.Copy(&buffer, resp.Body)
+			var buffer bytes.Buffer
+			io.Copy(&buffer, resp.Body)
 
-            ch <- buffer.Bytes()
-            senders.Done()
-        }(i)
-    }
-    senders.Wait()
+			ch <- buffer.Bytes()
+			senders.Done()
+		}(i)
+	}
+	senders.Wait()
 }
 
 // Permette di evitare di creare l'oggetto fields presente nelle rieposte

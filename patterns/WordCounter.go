@@ -1,13 +1,16 @@
 package patterns
 
-import(
-    "../sources"
+import (
+	"../sources"
 )
 
 type WordCounter struct {
-    Strategy WordCountStrategy
+	Strategy WordCountStrategy
 }
 
-func (counter *WordCounter) Count(articles []sources.Article) []struct{Key string; Value int} {
-    return counter.Strategy.Execute(articles)
+func (counter *WordCounter) Count(articles []sources.Article) []struct {
+	Key   string
+	Value int
+} {
+	return counter.Strategy.Execute(articles)
 }
