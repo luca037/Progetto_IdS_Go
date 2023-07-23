@@ -25,8 +25,7 @@ func (serializer *XmlSerializer) Serialize(articles []Article) {
 		defer file.Close()
 
 		encoder := xml.NewEncoder(file)
-		err = encoder.Encode(article)
-		if err != nil {
+		if err := encoder.Encode(article); err != nil {
 			panic(err)
 		}
 	}
@@ -52,8 +51,7 @@ func (serializer *XmlSerializer) Deserialize() []Article {
 		defer file.Close()
 
 		decoder := xml.NewDecoder(file)
-		err = decoder.Decode(&articles[index])
-		if err != nil {
+		if err := decoder.Decode(&articles[index]); err != nil {
 			panic(err)
 		}
 		index++

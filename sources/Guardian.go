@@ -42,8 +42,7 @@ func (guardian *Guardian) Download() []Article {
 		// oggetto in cui salvo la risposta
 		var response ResponseWrapper
 
-		err := json.Unmarshal(content, &response)
-		if err != nil {
+		if err := json.Unmarshal(content, &response); err != nil {
 			panic(err)
 		}
 
