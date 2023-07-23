@@ -22,3 +22,29 @@ da linea di comando in Java è stato molto più difficile.
 
 Successivamente riporto alcune specifiche del progetto e infine riporto una tabella
 con i risultati ottenuti.
+
+## I test
+I test vengono effettuati variando il numero di articoli che vengono scaricati 
+dalle sorgenti. Per ora variano solamente gli articoli richiesti alle API del 
+The Guardian, questo perché per ora non ho modo di ottere ulteriori file csv da 
+New York Times. 
+
+Nello specifico sono andato ad raddoppiare ad ogni test il numero di richieste
+alle API: entrambi i progetti gestiscono il download sfruttando la concorrenza, 
+entrambi i progetti creano thread logici e non fisici. In Java ho utilizzato la
+classe `Thread` mentre in Go utilizzo le `Goroutines`.
+
+Al di fuori dei metodi di download degli articoli del The Guardian, il resto del 
+codice dovrebbe essere pressoché idendico. Testando i due codici senza il download 
+del The Guardian, quindi con solo il "dowload" degli articoli del New York Times 
+e la successiva serializzazione, deserializzazione e conteggio parole, si nota che
+la versione in Go è quasi il doppio più veloce. (DA RICONTROLLARE CON TEST: inoltre
+modifica il codice gestione csv di Java).
+In ogni caso si tratta di un tempo costante.
+
+Dunque in conclusione dovremmo ottenere un test (non particolarmente preciso) 
+che dipende dalla gestione dei thread logici effettuata dai due linguaggi.
+
+Si tratta di stime grossolane che potrebbero non essere del tutto veritiere visto 
+che il codice non è esattamente identico in entrambi i progetti. In ogni caso
+si tratta di un progett realizzato per pura noia.
