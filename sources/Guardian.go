@@ -23,15 +23,19 @@ type Guardian struct {
 	ApiKey string
 }
 
+const kMaxPages = 5  // Numero di pagine totali richieste alle api.
+const kDimPage = 200 // Dimensione pagina richiesta alle api.
+
+// Il numero di articli scaricati è kMaxPages * kDimPage.
 func (guardian *Guardian) Download() []Article {
 	// contenuti delle risposte alle chiamate api
-	responsesBytes := make(chan []byte, 5)
+	responsesBytes := make(chan []byte, kMaxPages)
 
 	url := "https://content.guardianapis.com/search?show-fields=all&page-size=200&api-key=d882b87f-6009-434f-9076-af23bd12b56f"
-	go getResponses(responsesBytes, url, 5)
+	go getResponses(responsesBytes, url, kMaxPages)
 
 	// lista in cui salvo tutti i 1000 articoli delle risposte
-	allArticles := make([]Article, 200*5)
+	allArticles := make([]Article, kDimPage*kMaxPages)
 	index := 0
 
 	for content := range responsesBytes {
@@ -75,7 +79,7 @@ func getResponses(ch chan<- []byte, url string, nPages int) {
 
 			ch <- buffer.Bytes()
 			senders.Done()
-		}(i)
+		}(i) // RICORDARSI DI MODIFICARE: per i test setta i=1
 	}
 	senders.Wait()
 }
