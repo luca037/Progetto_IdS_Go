@@ -26,7 +26,7 @@ con i risultati ottenuti.
 ## I test
 I test vengono effettuati variando il numero di articoli che vengono scaricati 
 dalle sorgenti. Per ora variano solamente gli articoli richiesti alle API del 
-The Guardian, questo perché per ora non ho modo di ottere ulteriori file csv da 
+The Guardian, questo perché per ora non ho modo di ottenere ulteriori file csv da 
 New York Times. 
 
 Nello specifico sono andato ad raddoppiare ad ogni test il numero di richieste
@@ -35,7 +35,7 @@ entrambi i progetti creano thread logici e non fisici. In Java ho utilizzato la
 classe `Thread` mentre in Go utilizzo le `Goroutines`.
 
 Al di fuori dei metodi di download degli articoli del The Guardian, il resto del 
-codice dovrebbe essere pressoché idendico. Testando i due codici senza il download 
+codice dovrebbe essere pressoché identico. Testando i due codici senza il download 
 del The Guardian, quindi con solo il "dowload" degli articoli del New York Times 
 e la successiva serializzazione, deserializzazione e conteggio parole, si nota che
 la versione in Go è quasi il doppio più veloce. (DA RICONTROLLARE CON TEST: inoltre
@@ -47,4 +47,35 @@ che dipende dalla gestione dei thread logici effettuata dai due linguaggi.
 
 Si tratta di stime grossolane che potrebbero non essere del tutto veritiere visto 
 che il codice non è esattamente identico in entrambi i progetti. In ogni caso
-si tratta di un progett realizzato per pura noia.
+si tratta di un progett realizzato per pura noia che non ha grandi pretese.
+
+# Risultati
+
+## Fase di download Go
+
+(CORREGGERE ARTICOLI TOTALI)
+
+|N test | Articoli  | Tempo totale | Tempo medio |  |
+|-------|-----------|--------------|-------------|--|
+| 6     | 2000      |    13.41     |   2.235     |  |
+| 6     | 6000      |    18.77     |   3.128     |  |
+| 6     | 11000     |    17.22     |   2.87      |  |
+| 6     | 21000     |    21.23     |   3.538     |  |
+| 6     | 41000     |    37.96     |   6.326     |  |
+| 6     | 81000     |    39.29     |   6.548     |  |
+| 6     | 161000    |    57.22     |   9.536     |  |
+| 6     | 361000    |    113.66    |   18.943    |  |
+| 6     | 501000    |    150.86    |   25.143    |  |
+
+## Fase di download Java
+
+|N test | Articoli  | Tempo totale | Tempo medio |  |
+|-------|-----------|--------------|-------------|--|
+| 6     | 2000      |    22.64     |   3.773     |  |
+| 6     | 6000      |    26.52     |   4.42      |  |
+| 6     | 11000     |    30.37     |   5.061     |  |
+| 6     | 21000     |    41.76     |   6.96      |  |
+| 6     | 41000     |    80.6      |   13.433    |  |
+| 6     | 81000     |    82.05     |   13.675    |  |
+| 6     | 161000    |    147.23    |   24.538    |  |
+| 6     | 361000    |    293.83    |   48.971    |  |

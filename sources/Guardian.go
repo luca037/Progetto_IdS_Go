@@ -32,7 +32,7 @@ func (guardian *Guardian) Download() []Article {
 	responsesBytes := make(chan []byte, kMaxPages)
 
 	url := "https://content.guardianapis.com/search?show-fields=all&page-size=200&api-key="
-    url += guardian.ApiKey
+	url += guardian.ApiKey
 	go getResponses(responsesBytes, url, kMaxPages)
 
 	// lista in cui salvo tutti i 1000 articoli delle risposte

@@ -7,10 +7,10 @@ import (
 type SourceFactory struct{}
 
 func (factory *SourceFactory) CreateSource(args ...string) sources.Source {
-    if len(args) == 0 {
-        return nil
-    }
-    
+	if len(args) == 0 {
+		return nil
+	}
+
 	if args[0] == "Guardian" && len(args) == 2 {
 		return &sources.Guardian{ApiKey: args[1]}
 	}
