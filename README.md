@@ -24,6 +24,7 @@ Successivamente riporto alcune specifiche del progetto e infine riporto una tabe
 con i risultati ottenuti.
 
 ## I test
+
 I test vengono effettuati variando il numero di articoli che vengono scaricati 
 dalle sorgenti. Per ora variano solamente gli articoli richiesti alle API del 
 The Guardian, questo perché per ora non ho modo di ottenere ulteriori file csv da 
@@ -51,31 +52,59 @@ si tratta di un progett realizzato per pura noia che non ha grandi pretese.
 
 # Risultati
 
+Le voci:
+- N test: numero di test totali effettuati.
+- Articoli: totale di articoli scaricati.
+- Tempo totale: somma dei tempi di esecuzione dei test.
+- Tempo medio: tempo medio test (Tempo totale/N test)
+
+Gli articoli scaricati dal The Guardian sono sempre 1000; variano quelli del 
+New York Times, avendo a disposizione un unico file csv ho utilizzato solo quello.
+
+Dal numero totale di articoli si può risalire al numeoro di thread (`Thread` e 
+`Goroutines`) lanciati. I thread lanciati per scaricare gli articoli del The Guardian
+sono sempre 5, non li considero nel seguenti calcoli:
+
+Ogni thread gestisce 1000 articoli. Il numero di thread è dato dalla formula 
+(articoli-1000)/1000.
+
 ## Fase di download Go
 
 (CORREGGERE ARTICOLI TOTALI)
 
-|N test | Articoli  | Tempo totale | Tempo medio |  |
-|-------|-----------|--------------|-------------|--|
-| 6     | 2000      |    13.41     |   2.235     |  |
-| 6     | 6000      |    18.77     |   3.128     |  |
-| 6     | 11000     |    17.22     |   2.87      |  |
-| 6     | 21000     |    21.23     |   3.538     |  |
-| 6     | 41000     |    37.96     |   6.326     |  |
-| 6     | 81000     |    39.29     |   6.548     |  |
-| 6     | 161000    |    57.22     |   9.536     |  |
-| 6     | 361000    |    113.66    |   18.943    |  |
-| 6     | 501000    |    150.86    |   25.143    |  |
+|N test | Articoli  | Tempo totale | Tempo medio |  
+|-------|-----------|--------------|-------------|
+| 6     | 2000      |    13.41     |   2.235     |  
+| 6     | 6000      |    18.77     |   3.128     |  
+| 6     | 11000     |    17.22     |   2.87      |  
+| 6     | 21000     |    21.23     |   3.538     |  
+| 6     | 41000     |    37.96     |   6.326     |  
+| 6     | 81000     |    39.29     |   6.548     |  
+| 6     | 161000    |    57.22     |   9.536     |  
+| 6     | 361000    |    113.66    |   18.943    |  
+| 6     | 501000    |    150.86    |   25.143    |  
+
+Il numero massimo massimo di articoli gestibile con il metodo che ho scritto è 
+di circa 524 mila. Oltre tale soglia viene lanciato un'errore che dice "too many 
+open files". Adottando un'altra soluzione penso si possa aggirare tale vincolo.
 
 ## Fase di download Java
 
-|N test | Articoli  | Tempo totale | Tempo medio |  |
-|-------|-----------|--------------|-------------|--|
-| 6     | 2000      |    22.64     |   3.773     |  |
-| 6     | 6000      |    26.52     |   4.42      |  |
-| 6     | 11000     |    30.37     |   5.061     |  |
-| 6     | 21000     |    41.76     |   6.96      |  |
-| 6     | 41000     |    80.6      |   13.433    |  |
-| 6     | 81000     |    82.05     |   13.675    |  |
-| 6     | 161000    |    147.23    |   24.538    |  |
-| 6     | 361000    |    293.83    |   48.971    |  |
+|N test | Articoli  | Tempo totale | Tempo medio |  
+|-------|-----------|--------------|-------------|
+| 6     | 2000      |    22.64     |   3.773     |  
+| 6     | 6000      |    26.52     |   4.42      |  
+| 6     | 11000     |    30.37     |   5.061     |  
+| 6     | 21000     |    41.76     |   6.96      |  
+| 6     | 41000     |    80.6      |   13.433    |  
+| 6     | 81000     |    82.05     |   13.675    |  
+| 6     | 161000    |    147.23    |   24.538    |  
+| 6     | 361000    |    293.83    |   48.971    |  
+
+Il numero massimo di articoli gestibile con il metodo scritto è circa 190 mila. 
+Oltre a tale soglia viene generato l'errore `OutOfMemoryError` dovuto al Java Heap
+Space. Anche in questo caso penso che il vincolo sia una conseguenza di come ho 
+scritto il metodo.
+
+## Note sulla fase di download
+Ho notato Java utilizzava molta più percentuale di cpu rispetto a Go. 
