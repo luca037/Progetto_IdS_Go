@@ -58,6 +58,8 @@ Le voci:
 - Tempo totale: somma dei tempi di esecuzione dei test.
 - Tempo medio: tempo medio test (Tempo totale/N test)
 
+## Fase di download
+
 Gli articoli scaricati dal The Guardian sono sempre 1000; variano quelli del 
 New York Times, avendo a disposizione un unico file csv ho utilizzato solo quello.
 
@@ -68,9 +70,7 @@ sono sempre 5, non li considero nel seguenti calcoli:
 Ogni thread gestisce 1000 articoli. Il numero di thread è dato dalla formula 
 (articoli-1000)/1000.
 
-## Fase di download Go
-
-(CORREGGERE ARTICOLI TOTALI)
+### Go
 
 |N test | Articoli  |Tempo totale | Tempo medio |  
 |-------|-----------|-------------|-------------|
@@ -88,7 +88,7 @@ Il numero massimo massimo di articoli gestibile con il metodo che ho scritto è
 di circa 524 mila. Oltre tale soglia viene lanciato un'errore che dice "too many 
 open files". Adottando un'altra soluzione penso si possa aggirare tale vincolo.
 
-## Fase di download Java
+### Java
 
 |N test | Articoli  | Tempo totale | Tempo medio |  
 |-------|-----------|--------------|-------------|
@@ -106,10 +106,17 @@ Oltre a tale soglia viene generato l'errore `OutOfMemoryError` dovuto al Java He
 Space. Anche in questo caso penso che il vincolo sia una conseguenza di come ho 
 scritto il metodo.
 
-## Note sul dowload
+### Note sul dowload
+
 Java utilizzava molta più cpu rispetto a Go.
 
-## Fase di estrazione Go
+## Fase di estrazione
+
+Entrambi gli algoritimi non sfruttano la concorrenza, infatti le prestazioni non sono
+ottime, penso che potrei fare di megio. Ho testato le prestazioni di questo algoritmo
+perché si tratta della strategia adottata nel progetto originale.
+
+### Go
 
 |N test | Articoli  | Tempo totale | Tempo medio |  
 |-------|-----------|--------------|-------------|
@@ -123,7 +130,7 @@ Java utilizzava molta più cpu rispetto a Go.
 | 6     | 361360    |    260.37    |   43.39     |  
 | 6     | 501500    |    652.5     |   108.75    |  
 
-## Fase di estrazione Java
+### Java
 
 |N test | Articoli  | Tempo totale | Tempo medio |  
 |-------|-----------|--------------|-------------|
@@ -136,6 +143,3 @@ Java utilizzava molta più cpu rispetto a Go.
 | 6     | 161000    |   156.19     |   26.031    |  
 | 6     | 361000    |   201.55     |   33.591    |  
 
-## Note sull'estrazione
-Entrambi gli algoritimi non sfruttano la concorrenza, infatti le prestazioni non sono
-ottime, penso che potrei fare di megio.
