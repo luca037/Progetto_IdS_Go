@@ -20,55 +20,44 @@ librerie: per utilizzare le librerie di serializzazione e deserializzazione in x
 deserializzare da file Json, deserializzare da file csv e per gestire gli argomenti
 da linea di comando in Java è stato molto più difficile. 
 
-Successivamente riporto alcune specifiche del progetto e infine riporto una tabella
-con i risultati ottenuti.
-
 ## I test
 
 I test vengono effettuati variando il numero di articoli che vengono scaricati 
-dalle sorgenti. Per ora variano solamente gli articoli richiesti alle API del 
-The Guardian, questo perché per ora non ho modo di ottenere ulteriori file csv da 
-New York Times. 
+dalle sorgenti. Varia solamente il numero di articoli scaricati dal New York Times
+perché le API del The Guardian hanno un numero massimo di richieste giornaliere.
+Più precisamente uso solamente lo stesso file csv del New York Times, questo perché 
+non ho modo di ottenerne altri, in ogni caso non importa visto che non ho considerato 
+i conteggi delle parole.
 
-Nello specifico sono andato ad raddoppiare ad ogni test il numero di richieste
-alle API: entrambi i progetti gestiscono il download sfruttando la concorrenza, 
-entrambi i progetti creano thread logici e non fisici. In Java ho utilizzato la
-classe `Thread` mentre in Go utilizzo le `Goroutines`.
-
-Al di fuori dei metodi di download degli articoli del The Guardian, il resto del 
-codice dovrebbe essere pressoché identico. Testando i due codici senza il download 
-del The Guardian, quindi con solo il "dowload" degli articoli del New York Times 
-e la successiva serializzazione, deserializzazione e conteggio parole, si nota che
-la versione in Go è quasi il doppio più veloce. (DA RICONTROLLARE CON TEST: inoltre
-modifica il codice gestione csv di Java).
-In ogni caso si tratta di un tempo costante.
-
-Dunque in conclusione dovremmo ottenere un test (non particolarmente preciso) 
-che dipende dalla gestione dei thread logici effettuata dai due linguaggi.
+Le due fasi testate sono: prima prima download poi estrazione. Nella prima fase
+entrambe le soluzioni sfruttano la concorrenza: vengono lanciati diversi thread logici
+(tramite `Goroutines` in Go e usando la classe `Thread` in Java).
+La seconda fase è sequenziale in entrambi i progetti, l'algoritmo è pressoché identico
+in entrambi i progetti.
 
 Si tratta di stime grossolane che potrebbero non essere del tutto veritiere visto 
-che il codice non è esattamente identico in entrambi i progetti. In ogni caso
-si tratta di un progett realizzato per pura noia che non ha grandi pretese.
+che il codice non è esattamente identico in entrambi i progetti, inoltre sono sicuro
+che il codice possa essere migliorato e reso più efficiente. In ogni caso
+si tratta di un progetto realizzato per pura noia che non ha grandi pretese.
 
 # Risultati
 
 Le voci:
-- N test: numero di test totali effettuati.
-- Articoli: totale di articoli scaricati.
-- Tempo totale: somma dei tempi di esecuzione dei test.
-- Tempo medio: tempo medio test (Tempo totale/N test)
+- **N test**: numero di test totali effettuati.
+- **Articoli**: totale di articoli scaricati.
+- **Tempo totale**: somma dei tempi di esecuzione dei test.
+- **Tempo medio**: tempo medio test (Tempo totale/N test)
 
 ## Fase di download
 
-Gli articoli scaricati dal The Guardian sono sempre 1000; variano quelli del 
-New York Times, avendo a disposizione un unico file csv ho utilizzato solo quello.
+Dal numero totale di articoli si può risalire al numeoro di thread lanciati. 
+I thread lanciati per scaricare gli articoli del The Guardian sono sempre 5 in 
+entrambi i progetti. Tali thread non li consideriamo nei seguenti calcoli visto 
+che terminano tutti prima della fase di download degli articoli del New York Times.
 
-Dal numero totale di articoli si può risalire al numeoro di thread (`Thread` e 
-`Goroutines`) lanciati. I thread lanciati per scaricare gli articoli del The Guardian
-sono sempre 5, non li considero nel seguenti calcoli:
-
-Ogni thread gestisce 1000 articoli. Il numero di thread è dato dalla formula 
-(articoli-1000)/1000.
+Il numero di thread lanciati nella fase di download è dato dalla formula 
+$(articoli-1000)/1000$ nel caso di Java e dalla formula $(articoli-1000)/1001$ 
+nel caso di Go.
 
 ### Go
 
