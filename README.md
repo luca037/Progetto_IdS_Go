@@ -106,9 +106,9 @@ Oltre a tale soglia viene generato l'errore `OutOfMemoryError` dovuto al Java He
 Space. Anche in questo caso penso che il vincolo sia una conseguenza di come ho 
 scritto il metodo.
 
-### Note sul dowload
+### Grafico
 
-Java utilizzava molta più cpu rispetto a Go.
+![]("./grafici/download.png")
 
 ## Fase di estrazione
 
@@ -142,3 +142,10 @@ perché si tratta della strategia adottata nel progetto originale.
 | 6     | 81000     |   73.81      |   12.301    |  
 | 6     | 161000    |   156.19     |   26.031    |  
 | 6     | 191000    |   201.55     |   33.591    |  
+
+Anche in questa fase vale lo stesso discorso fatto per la fase di download:
+viene generato un errore se si superano i 190 mila articoli.
+
+### Grafico
+
+![]("./grafici/extraction.png.png")

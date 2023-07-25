@@ -3,3 +3,6 @@ main
 nytimes_articles_v2.csv
 results.txt
 outputXml
+runTest.sh
+testsFiles
+generateImg.py
