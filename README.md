@@ -81,7 +81,7 @@ Ogni thread gestisce 1000 articoli. Il numero di thread è dato dalla formula
 | 6     | 41040     |   37.96     |   6.326     |  
 | 6     | 81080     |   39.29     |   6.548     |  
 | 6     | 161160    |   57.22     |   9.536     |  
-| 6     | 361360    |   79.44     |   13.24     |  
+| 6     | 321320    |   79.44     |   13.24     |  
 | 6     | 501500    |   150.86    |   25.143    |  
 
 Il numero massimo massimo di articoli gestibile con il metodo che ho scritto è 
@@ -99,7 +99,7 @@ open files". Adottando un'altra soluzione penso si possa aggirare tale vincolo.
 | 6     | 41000     |    80.6      |   13.433    |  
 | 6     | 81000     |    82.05     |   13.675    |  
 | 6     | 161000    |    147.23    |   24.538    |  
-| 6     | 361000    |    293.83    |   48.971    |  
+| 6     | 191000    |    293.83    |   48.971    |  
 
 Il numero massimo di articoli gestibile con il metodo scritto è circa 190 mila. 
 Oltre a tale soglia viene generato l'errore `OutOfMemoryError` dovuto al Java Heap
@@ -127,7 +127,7 @@ perché si tratta della strategia adottata nel progetto originale.
 | 6     | 41040     |    34.1      |   5.6833    |  
 | 6     | 81080     |    65.49     |   10.915    |  
 | 6     | 161160    |    129.01    |   21.50     |  
-| 6     | 361360    |    260.37    |   43.39     |  
+| 6     | 321320    |    260.37    |   43.39     |  
 | 6     | 501500    |    652.5     |   108.75    |  
 
 ### Java
@@ -141,5 +141,4 @@ perché si tratta della strategia adottata nel progetto originale.
 | 6     | 41000     |   41.26      |   6.876     |  
 | 6     | 81000     |   73.81      |   12.301    |  
 | 6     | 161000    |   156.19     |   26.031    |  
-| 6     | 361000    |   201.55     |   33.591    |  
-
+| 6     | 191000    |   201.55     |   33.591    |  
