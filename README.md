@@ -108,7 +108,7 @@ scritto il metodo.
 
 ### Grafico
 
-![]("./grafici/download.png")
+![](grafici/download.png)
 
 ## Fase di estrazione
 
@@ -148,4 +148,4 @@ viene generato un errore se si superano i 190 mila articoli.
 
 ### Grafico
 
-![]("./grafici/extraction.png.png")
+![](grafici/extraction.png)
