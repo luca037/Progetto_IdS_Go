@@ -72,17 +72,17 @@ Ogni thread gestisce 1000 articoli. Il numero di thread è dato dalla formula
 
 (CORREGGERE ARTICOLI TOTALI)
 
-|N test | Articoli  | Tempo totale | Tempo medio |  
-|-------|-----------|--------------|-------------|
-| 6     | 2000      |    13.41     |   2.235     |  
-| 6     | 6000      |    18.77     |   3.128     |  
-| 6     | 11000     |    17.22     |   2.87      |  
-| 6     | 21000     |    21.23     |   3.538     |  
-| 6     | 41000     |    37.96     |   6.326     |  
-| 6     | 81000     |    39.29     |   6.548     |  
-| 6     | 161000    |    57.22     |   9.536     |  
-| 6     | 361000    |    113.66    |   18.943    |  
-| 6     | 501000    |    150.86    |   25.143    |  
+|N test | Articoli  |Tempo totale | Tempo medio |  
+|-------|-----------|-------------|-------------|
+| 6     | 2001      |   13.41     |   2.235     |  
+| 6     | 6005      |   18.77     |   3.128     |  
+| 6     | 11010     |   17.22     |   2.87      |  
+| 6     | 21020     |   21.23     |   3.538     |  
+| 6     | 41040     |   37.96     |   6.326     |  
+| 6     | 81080     |   39.29     |   6.548     |  
+| 6     | 161160    |   57.22     |   9.536     |  
+| 6     | 361360    |   79.44     |   13.24     |  
+| 6     | 501500    |   150.86    |   25.143    |  
 
 Il numero massimo massimo di articoli gestibile con il metodo che ho scritto è 
 di circa 524 mila. Oltre tale soglia viene lanciato un'errore che dice "too many 
@@ -106,5 +106,36 @@ Oltre a tale soglia viene generato l'errore `OutOfMemoryError` dovuto al Java He
 Space. Anche in questo caso penso che il vincolo sia una conseguenza di come ho 
 scritto il metodo.
 
-## Note sulla fase di download
-Ho notato Java utilizzava molta più percentuale di cpu rispetto a Go. 
+## Note sul dowload
+Java utilizzava molta più cpu rispetto a Go.
+
+## Fase di estrazione Go
+
+|N test | Articoli  | Tempo totale | Tempo medio |  
+|-------|-----------|--------------|-------------|
+| 6     | 2001      |    3.17      |   0.528     |  
+| 6     | 6005      |    6.48      |   1.08      |  
+| 6     | 11010     |    10.46     |   1.743     |  
+| 6     | 21020     |    18.4      |   3.066     |  
+| 6     | 41040     |    34.1      |   5.6833    |  
+| 6     | 81080     |    65.49     |   10.915    |  
+| 6     | 161160    |    129.01    |   21.50     |  
+| 6     | 361360    |    260.37    |   43.39     |  
+| 6     | 501500    |    652.5     |   108.75    |  
+
+## Fase di estrazione Java
+
+|N test | Articoli  | Tempo totale | Tempo medio |  
+|-------|-----------|--------------|-------------|
+| 6     | 2000      |   5.25       |   0.875     |  
+| 6     | 6000      |   9.97       |   1.661     |  
+| 6     | 11000     |   15.89      |   2.648     |  
+| 6     | 21000     |   25.07      |   4.178     |  
+| 6     | 41000     |   41.26      |   6.876     |  
+| 6     | 81000     |   73.81      |   12.301    |  
+| 6     | 161000    |   156.19     |   26.031    |  
+| 6     | 361000    |   201.55     |   33.591    |  
+
+## Note sull'estrazione
+Entrambi gli algoritimi non sfruttano la concorrenza, infatti le prestazioni non sono
+ottime, penso che potrei fare di megio.
