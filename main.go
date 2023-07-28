@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
-	//"log"
+	"log"
 	"./patterns"
 	"./sources"
 	"flag"
@@ -36,7 +36,7 @@ func main() {
 	// ### FASE DI DOWLOAD ###
 	if *dowload || *dowloadAndExtract {
 		if *apiKey == "noApi" {
-			//log.Println("ERROR - You need to set API-KEY")
+			log.Println("ERROR - You need to set API-KEY")
 			return
 		}
 
@@ -50,23 +50,23 @@ func main() {
 			"./nytimes_articles_v2.csv",
 		)
 
-		//log.Println("INFO - Starting download")
+		log.Println("INFO - Starting download")
 		allArticles := append(guardian.Download(), nytimes.Download()...)
 
-		//log.Println("INFO - Serializing articles")
+		log.Println("INFO - Serializing articles")
 		serializer.Serialize(allArticles)
 	}
 
 	// ### FASE DI ESTRAZIONE ###
 	if *extract || *dowloadAndExtract {
-		//log.Println("INFO - Deserializing articles")
+		log.Println("INFO - Deserializing articles")
 		deserializedArticles := serializer.Deserialize()
 
 		var counter patterns.WordCounter = patterns.WordCounter{
 			Strategy: &patterns.FrequencyPerArticleStrategy{},
 		}
 
-		//log.Println("INFO - Extracting terms")
+		log.Println("INFO - Extracting terms")
 		results := counter.Count(deserializedArticles)
 
 		// stampa primi 50 risultati
@@ -86,6 +86,6 @@ func main() {
 			i++
 		}
 
-		//log.Println("INFO - You can find the results in", outputFile.Name())
+		log.Println("INFO - You can find the results in", outputFile.Name())
 	}
 }
