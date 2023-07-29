@@ -77,14 +77,12 @@ func main() {
 		}
 		defer outputFile.Close()
 
-		i := 0
-		for _, entry := range results {
+		for i, entry := range results {
 			if i == 50 {
 				break
 			}
 			line := entry.Key + " " + fmt.Sprint(entry.Value) + "\n"
 			outputFile.WriteString(line)
-			i++
 		}
 
 		log.Println("INFO - You can find the results in", outputFile.Name())
