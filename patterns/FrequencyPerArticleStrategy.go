@@ -5,7 +5,7 @@ import (
 	"strings"
 	"unicode"
 
-	"../sources"
+	"github.com/luca037/Progetto_Ids_Go/sources"
 )
 
 type FrequencyPerArticleStrategy struct{}

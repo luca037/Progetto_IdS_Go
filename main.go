@@ -1,16 +1,17 @@
 package main
 
 import (
-	"fmt"
-	"os"
-	"log"
-	"./patterns"
-	"./sources"
 	"flag"
+	"fmt"
+	"log"
+	"os"
+
+	"github.com/luca037/Progetto_Ids_Go/patterns"
+	"github.com/luca037/Progetto_Ids_Go/sources"
 )
 
 func main() {
-	// ### Gestione comandi utente ###
+	// ### GESTIONE COMANDI UTENTE ###
 	// opzioni disponibili
 	dowload := flag.Bool("d", false, "Dowload articles")
 	extract := flag.Bool("e", false, "Exctract terms")

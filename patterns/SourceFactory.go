@@ -1,7 +1,7 @@
 package patterns
 
 import (
-	"../sources"
+	"github.com/luca037/Progetto_Ids_Go/sources"
 )
 
 type SourceFactory struct{}
