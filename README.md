@@ -2,32 +2,31 @@
 
 ## Descrizione
 Il progetto di IdS è un progetto (di gruppo) che mi è stato assegnato nel corso 
-di ingegneria del software. 
+di Ingegneria del Software. 
 In poche parole si trattava di scrivere in programma che permettesse 
 di scaricare degli articoli da due fonti: The Guardian e New York Times.
-In particolare gli articoli del The Guardian dovevano essere scaricati tramite API;
-gli articoli del New York Times venivano fornite tramite un file in formato csv.
+In particolare gli articoli del The Guardian dovevano essere scaricati tramite API
+mentre gli articoli del New York Times erano stati salvati in un file csv.
 
-Il progetto originale è stato scritto in Java, io ho deciso di prendere tale progetto
-e riscriverlo completamente in Go. Le funzionalità offerte dalle due versioni sono
-esattamente le stesse, in questa versione ho solamente cercato di migliorare le 
-prestazioni del programma sfruttando le strutture dati offerte da Go per la gestione
-della sincronizzazione.
+Il progetto originale è stato scritto in Java. Ho deciso di rifare il progetto
+in Go. Le funzionalità offerte dalle due versioni sono esattamente le stesse.
+L'obiettivo è quello di confrontare le prestazioni dei due progetti scritti in
+due linguaggi differenti.
 
-Riscrivendo il codice in Go mi sono accorto della semplicità rispetto a Java. 
+Riscrivendo il codice in Go mi sono accorto della sua semplicità rispetto a Java. 
 La cosa che mi ha stupito particolarmente è stata la facilità nell'utilizzare le 
-librerie: per utilizzare le librerie di serializzazione e deserializzazione in xml, 
+librerie: utilizzare le librerie per serializzazare e deserializzazare in xml, 
 deserializzare da file Json, deserializzare da file csv e per gestire gli argomenti
-da linea di comando in Java è stato molto più difficile. 
+da linea di comando è più semplice in Go rispetto a Java.
 
 ## I test
-
 I test vengono effettuati variando il numero di articoli che vengono scaricati 
 dalle sorgenti. Varia solamente il numero di articoli scaricati dal New York Times
 perché le API del The Guardian hanno un numero massimo di richieste giornaliere.
-Più precisamente uso solamente lo stesso file csv del New York Times, questo perché 
-non ho modo di ottenerne altri, in ogni caso non importa visto che non ho considerato 
-i conteggi delle parole.
+Uso solamente lo stesso file csv del New York Times, questo perché 
+non ho modo di ottenerne altri. 
+In ogni caso non importa visto che non ho considerato i conteggi delle parole per
+misurare i tempi.
 
 Le due fasi testate sono: prima prima download poi estrazione. Nella prima fase
 entrambe le soluzioni sfruttano la concorrenza: vengono lanciati diversi thread logici
@@ -41,7 +40,6 @@ che il codice possa essere migliorato e reso più efficiente. In ogni caso
 si tratta di un progetto realizzato per pura noia che non ha grandi pretese.
 
 # Risultati
-
 Le voci:
 - **N test**: numero di test totali effettuati.
 - **Articoli**: totale di articoli scaricati.
@@ -49,7 +47,6 @@ Le voci:
 - **Tempo medio**: tempo medio test (Tempo totale/N test)
 
 ## Fase di download
-
 Dal numero totale di articoli si può risalire al numeoro di thread lanciati. 
 I thread lanciati per scaricare gli articoli del The Guardian sono sempre 5 in 
 entrambi i progetti. Tali thread non li consideriamo nei seguenti calcoli visto 
@@ -96,17 +93,14 @@ Space. Anche in questo caso penso che il vincolo sia una conseguenza di come ho
 scritto il metodo.
 
 ### Grafico
-
 ![](grafici/download.png)
 
 ## Fase di estrazione
-
 Entrambi gli algoritimi non sfruttano la concorrenza, infatti le prestazioni non sono
 ottime, penso che potrei fare di megio. Ho testato le prestazioni di questo algoritmo
 perché si tratta della strategia adottata nel progetto originale.
 
 ### Go
-
 |N test | Articoli  | Tempo totale | Tempo medio |  
 |-------|-----------|--------------|-------------|
 | 6     | 2001      |    3.17      |   0.528     |  
@@ -120,7 +114,6 @@ perché si tratta della strategia adottata nel progetto originale.
 | 6     | 501500    |    652.5     |   108.75    |  
 
 ### Java
-
 |N test | Articoli  | Tempo totale | Tempo medio |  
 |-------|-----------|--------------|-------------|
 | 6     | 2000      |   5.25       |   0.875     |  
@@ -132,9 +125,8 @@ perché si tratta della strategia adottata nel progetto originale.
 | 6     | 161000    |   156.19     |   26.031    |  
 | 6     | 191000    |   201.55     |   33.591    |  
 
-Anche in questa fase vale lo stesso discorso fatto per la fase di download:
+Anche per questa fase vale lo stesso discorso fatto per quella precedente:
 viene generato un errore se si superano i 190 mila articoli.
 
 ### Grafico
-
 ![](grafici/extraction.png)
